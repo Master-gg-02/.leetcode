@@ -11,25 +11,22 @@
  */
 var reverse = function (x) {
   let max = Math.pow(2, 31);
-  let arrStr = x + '';
-  let len = arrStr.length;
-  let isPostive = true;
-  if (arrStr[0] == '-') {
-    arrStr = arrStr.slice(1, len);
-    len -= 1;
-    isPostive = false;
+  let numStr = x.toString();
+  let numLen = 0;
+  let ret = 0;
+  let remainder = 0;
+  if (numStr[0] == '-' || numStr[0] == '+') {
+    numLen = numStr.length - 1;
+  } else {
+    numLen = numStr.length;
   }
-  let temArr = new Array(len);
-  let result = 0;
-  for (let i = 0; i < len; i++) {
-    let j = len - (i + 1);
-    temArr[i] = arrStr[j];
-    result += temArr[i] * Math.pow(10, j);
+  for (let i = 0; i < numLen; i++) {
+    remainder = x % 10;
+    x = (x - remainder) / 10;
+    ret += remainder * Math.pow(10, numLen - i - 1);
   }
-  if (result > max || result < -max) {
+  if (ret > max || ret < -max) {
     return 0;
   }
+  return ret;
 };
-let a = reverse(24515255);
-console.log(a);
-// @lc code=end
